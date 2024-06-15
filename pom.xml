@@ -66,13 +66,6 @@
             <artifactId>quarkus-resteasy-reactive</artifactId>
         </dependency>
 
-        <!-- persistence -->
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <version>2.2</version>
-        </dependency>
-
         <!-- Json -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
