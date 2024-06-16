@@ -2,7 +2,7 @@ package mapper;
 
 public interface IEntityMapper<E, D> {
 
-    void dtoToEntity(D dto, E entity);
+    void dtoToEntity(E entity,D dto);
 
-    void entityToDto(E entity, D dto);
+    void entityToDto( D dto, E entity);
 }

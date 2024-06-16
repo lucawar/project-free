@@ -9,12 +9,12 @@ public class UserMapper extends AbstractMapper<User, UserRequestDTO> {
 
 
     @Override
-    public void dtoToEntity(UserRequestDTO dto, User entity) {
-        doCopy(dto, entity);
+    public void dtoToEntity(User entity, UserRequestDTO userRequestDTO) {
+        doCopy(entity, userRequestDTO);
     }
 
     @Override
-    public void entityToDto(User entity, UserRequestDTO dto) {
-        doCopy(entity, dto);
+    public void entityToDto(UserRequestDTO userRequestDTO, User entity) {
+        doCopy(userRequestDTO, entity);
     }
 }

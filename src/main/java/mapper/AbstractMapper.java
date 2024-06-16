@@ -9,7 +9,7 @@ public abstract class AbstractMapper<E, D> implements IEntityMapper<E, D> {
 
     protected void doCopy(Object dest, Object orig) {
         try {
-            BeanUtils.copyProperties(orig, dest);
+            BeanUtils.copyProperties(dest, orig);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException("Copy properties failed", e);
         }

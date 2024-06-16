@@ -22,7 +22,7 @@ public class UserService {
     @Transactional
     public UserRequestDTO createUser(UserRequestDTO userDto) {
         User user = new User();
-        userMapper.dtoToEntity(userDto, user);
+        userMapper.dtoToEntity(user, userDto);
         userRepository.save(user);
         return userDto;
     }
@@ -31,7 +31,7 @@ public class UserService {
         User user = userRepository.findById(id);
         if (user != null) {
             UserRequestDTO responseDto = new UserRequestDTO();
-            userMapper.entityToDto(user, responseDto);
+            userMapper.entityToDto(responseDto, user);
             return responseDto;
         }
         return null;
@@ -42,7 +42,7 @@ public class UserService {
         return users.stream()
                 .map(user -> {
                     UserRequestDTO usersDTO = new UserRequestDTO();
-                    userMapper.entityToDto(user, usersDTO);
+                    userMapper.entityToDto(usersDTO, user);
                     return usersDTO;
                 })
                 .toList();
@@ -52,10 +52,10 @@ public class UserService {
     public UserRequestDTO updateUser(Long id, UserRequestDTO userDto) {
         User existingUser = userRepository.findById(id);
         if (existingUser != null) {
-            userMapper.dtoToEntity(userDto, existingUser);
+            userMapper.dtoToEntity(existingUser, userDto);
             userRepository.update(existingUser);
             UserRequestDTO responseDto = new UserRequestDTO();
-            userMapper.entityToDto(existingUser, responseDto);
+            userMapper.entityToDto(responseDto, existingUser);
             return responseDto;
         }
         return null;
