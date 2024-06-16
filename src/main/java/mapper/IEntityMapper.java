@@ -1,7 +1,8 @@
 package mapper;
 
-public interface IEntityMapper <E, D> {
+public interface IEntityMapper<E, D> {
 
-    E dtoToEntity(D dto, E entity);
-    D entityToDto(E entity, D dto);
+    void dtoToEntity(D dto, E entity);
+
+    void entityToDto(E entity, D dto);
 }
