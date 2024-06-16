@@ -1,6 +1,6 @@
 package resource;
 
-import dto.UserDTO;
+import dto.UserRequestDTO;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -27,10 +27,10 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response createUserRest(UserDTO userDto) {
+    public Response createUserRest(UserRequestDTO userDto) {
         try {
-            UserDTO responseDTO = userService.createUser(userDto);
-            return Response.status(Response.Status.CREATED).entity(responseDTO).build();
+            UserRequestDTO requestDto = userService.createUser(userDto);
+            return Response.status(Response.Status.CREATED).entity(requestDto).build();
         } catch (Exception e) {
             log.error("Error creating user", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error creating user: " + e.getMessage()).build();
@@ -42,9 +42,9 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByIdRest(@PathParam("id") Long id) {
         try {
-            UserDTO userDTO = userService.getUser(id);
-            if (userDTO != null) {
-                return Response.ok(userDTO).build();
+            UserRequestDTO userDto = userService.getUser(id);
+            if (userDto != null) {
+                return Response.ok(userDto).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
             }
@@ -59,7 +59,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getusersRest() {
         try {
-            List<UserDTO> usersList = userService.getAllUsers();
+            List<UserRequestDTO> usersList = userService.getAllUsers();
             return Response.ok(usersList).build();
         } catch (Exception e) {
             log.error("Error retrieving  user", e);
@@ -72,9 +72,9 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response updateUserRest(@PathParam("id") Long id, UserDTO userDto) {
+    public Response updateUserRest(@PathParam("id") Long id, UserRequestDTO userDto) {
         try {
-            UserDTO updateUserDto = userService.updateUser(id, userDto);
+            UserRequestDTO updateUserDto = userService.updateUser(id, userDto);
             if (updateUserDto != null) {
                 return Response.ok(updateUserDto).build();
             } else {

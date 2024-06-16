@@ -1,6 +1,6 @@
 package service;
 
-import dto.UserDTO;
+import dto.UserRequestDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -20,28 +20,28 @@ public class UserService {
     UserMapper userMapper;
 
     @Transactional
-    public UserDTO createUser(UserDTO userDto) {
+    public UserRequestDTO createUser(UserRequestDTO userDto) {
         User user = new User();
         userMapper.dtoToEntity(userDto, user);
         userRepository.save(user);
         return userDto;
     }
 
-    public UserDTO getUser(Long id) {
+    public UserRequestDTO getUser(Long id) {
         User user = userRepository.findById(id);
         if (user != null) {
-            UserDTO responseDto = new UserDTO();
+            UserRequestDTO responseDto = new UserRequestDTO();
             userMapper.entityToDto(user, responseDto);
             return responseDto;
         }
         return null;
     }
 
-    public List<UserDTO> getAllUsers() {
+    public List<UserRequestDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
                 .map(user -> {
-                    UserDTO usersDTO = new UserDTO();
+                    UserRequestDTO usersDTO = new UserRequestDTO();
                     userMapper.entityToDto(user, usersDTO);
                     return usersDTO;
                 })
@@ -49,12 +49,12 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateUser(Long id, UserDTO userDto) {
+    public UserRequestDTO updateUser(Long id, UserRequestDTO userDto) {
         User existingUser = userRepository.findById(id);
         if (existingUser != null) {
             userMapper.dtoToEntity(userDto, existingUser);
             userRepository.update(existingUser);
-            UserDTO responseDto = new UserDTO();
+            UserRequestDTO responseDto = new UserRequestDTO();
             userMapper.entityToDto(existingUser, responseDto);
             return responseDto;
         }
