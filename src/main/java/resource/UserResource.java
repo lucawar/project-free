@@ -1,6 +1,7 @@
 package resource;
 
-import dto.UserRequestDTO;
+import dto.request.UserRequestDTO;
+import dto.response.UserResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -42,7 +43,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByIdRest(@PathParam("id") Long id) {
         try {
-            UserRequestDTO userDto = userService.getUser(id);
+            UserResponseDTO userDto = userService.getUser(id);
             if (userDto != null) {
                 return Response.ok(userDto).build();
             } else {
@@ -59,7 +60,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getusersRest() {
         try {
-            List<UserRequestDTO> usersList = userService.getAllUsers();
+            List<UserResponseDTO> usersList = userService.getAllUsers();
             return Response.ok(usersList).build();
         } catch (Exception e) {
             log.error("Error retrieving  user", e);

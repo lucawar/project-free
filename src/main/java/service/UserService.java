@@ -1,6 +1,7 @@
 package service;
 
-import dto.UserRequestDTO;
+import dto.request.UserRequestDTO;
+import dto.response.UserResponseDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -27,23 +28,23 @@ public class UserService {
         return userDto;
     }
 
-    public UserRequestDTO getUser(Long id) {
+    public UserResponseDTO getUser(Long id) {
         User user = userRepository.findById(id);
         if (user != null) {
-            UserRequestDTO responseDto = new UserRequestDTO();
-            userMapper.entityToDto(responseDto, user);
-            return responseDto;
+            UserResponseDTO userResponseDTO = new UserResponseDTO();
+            userMapper.entityToResponseDto(userResponseDTO, user);
+            return userResponseDTO;
         }
         return null;
     }
 
-    public List<UserRequestDTO> getAllUsers() {
+    public List<UserResponseDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
                 .map(user -> {
-                    UserRequestDTO usersDTO = new UserRequestDTO();
-                    userMapper.entityToDto(usersDTO, user);
-                    return usersDTO;
+                    UserResponseDTO userResponseDTO = new UserResponseDTO();
+                    userMapper.entityToResponseDto(userResponseDTO, user);
+                    return userResponseDTO;
                 })
                 .toList();
     }
@@ -54,9 +55,9 @@ public class UserService {
         if (existingUser != null) {
             userMapper.dtoToEntity(existingUser, userDto);
             userRepository.update(existingUser);
-            UserRequestDTO responseDto = new UserRequestDTO();
-            userMapper.entityToDto(responseDto, existingUser);
-            return responseDto;
+            UserRequestDTO userRequestDTO = new UserRequestDTO();
+            userMapper.entityToDto(userRequestDTO, existingUser);
+            return userRequestDTO;
         }
         return null;
     }

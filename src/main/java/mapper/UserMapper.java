@@ -1,6 +1,7 @@
 package mapper;
 
-import dto.UserRequestDTO;
+import dto.request.UserRequestDTO;
+import dto.response.UserResponseDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import model.User;
 
@@ -17,4 +18,10 @@ public class UserMapper extends AbstractMapper<User, UserRequestDTO> {
     public void entityToDto(UserRequestDTO userRequestDTO, User entity) {
         doCopy(userRequestDTO, entity);
     }
+
+    // Metodo specifico per UserResponseDTO per ricevere in output il DTO di response
+    public void entityToResponseDto(UserResponseDTO dto, User entity) {
+        doCopy(dto, entity);
+    }
+
 }

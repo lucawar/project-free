@@ -1,7 +1,10 @@
-package dto;
+package dto.response;
+
+import lombok.Data;
 
 import java.util.UUID;
 
+@Data
 public class UserResponseDTO {
 
     private UUID userUuid;
