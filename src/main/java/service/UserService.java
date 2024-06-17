@@ -1,13 +1,16 @@
 package service;
 
 import dto.UserRequestDTO;
+import dto.UserResponseDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import mapper.UserMapper;
 import model.User;
+import org.apache.commons.beanutils.BeanUtils;
 import repository.UserRepository;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @ApplicationScoped
@@ -27,11 +30,12 @@ public class UserService {
         return userDto;
     }
 
-    public UserRequestDTO getUser(Long id) {
+    public UserResponseDTO getUser(Long id) throws InvocationTargetException, IllegalAccessException {
         User user = userRepository.findById(id);
         if (user != null) {
-            UserRequestDTO responseDto = new UserRequestDTO();
-            userMapper.entityToDto(responseDto, user);
+            UserResponseDTO responseDto = new UserResponseDTO();
+            //userMapper.entityToDto(responseDto, user);
+            BeanUtils.copyProperties(responseDto, user);
             return responseDto;
         }
         return null;
@@ -42,7 +46,12 @@ public class UserService {
         return users.stream()
                 .map(user -> {
                     UserRequestDTO usersDTO = new UserRequestDTO();
-                    userMapper.entityToDto(usersDTO, user);
+                    //userMapper.entityToDto(usersDTO, user);
+                    try {
+                        BeanUtils.copyProperties(usersDTO, user);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
                     return usersDTO;
                 })
                 .toList();

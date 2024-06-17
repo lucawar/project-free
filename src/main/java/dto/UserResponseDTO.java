@@ -1,7 +1,11 @@
 package dto;
 
+import enums.UserGenderEnum;
+import lombok.Data;
+
 import java.util.UUID;
 
+@Data
 public class UserResponseDTO {
 
     private UUID userUuid;
@@ -11,4 +15,6 @@ public class UserResponseDTO {
     private String cognome;
 
     private String email;
+
+    private UserGenderEnum sesso;
 }

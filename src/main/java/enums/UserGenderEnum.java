@@ -1,8 +1,16 @@
 package enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum UserGenderEnum {
 
-    UOMO,
+    UOMO(1),
 
-    DONNA;
+    DONNA(2);
+
+    private final int id;
+
 }

@@ -1,5 +1,6 @@
 package model;
 
+import enums.UserGenderEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,10 @@ public class User {
 
     @Column(name = "user_email")
     private String email;
+
+    @Column(name = "user_sesso")
+    @Enumerated(EnumType.STRING)
+    private UserGenderEnum sesso;
 
     @Column(name = "data_creazione")
     private LocalDateTime dataCreazione;
