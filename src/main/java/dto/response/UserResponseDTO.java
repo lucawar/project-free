@@ -1,5 +1,6 @@
 package dto.response;
 
+import enums.UserGenderEnum;
 import lombok.Data;
 
 import java.util.UUID;
@@ -14,4 +15,6 @@ public class UserResponseDTO {
     private String cognome;
 
     private String email;
+
+    private UserGenderEnum sesso;
 }
