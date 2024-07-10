@@ -3,7 +3,6 @@ package utils;
 public class Util {
 
     // Trasforma in maiuscolo la prima lettera della stringa
-
     public static String capitalizeFirstLetter(String str) {
         assert str != null;
         if (str.isEmpty()) {
