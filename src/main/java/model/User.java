@@ -35,7 +35,7 @@ public class User {
     @Column(name = "user_data_nascita")
     private LocalDate dataNascita;
 
-    @Column(name = "user_email")
+    @Column(name = "user_email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "user_sesso")
