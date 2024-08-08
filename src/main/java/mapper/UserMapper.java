@@ -19,7 +19,7 @@ public class UserMapper extends AbstractMapper<User, UserRequestDTO> {
         doCopy(userRequestDTO, entity);
     }
 
-    // Metodo specifico per UserResponseDTO per ricevere in output il DTO di response
+    // Metodo specifico per UserResponseDTO per ricevere in output il DTO della response
     public void entityToResponseDto(UserResponseDTO dto, User entity) {
         doCopy(dto, entity);
     }

@@ -1,8 +1,9 @@
 package dto.response;
 
-import enums.UserGenderEnum;
+import enums.EuserGenderEnum;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -16,5 +17,8 @@ public class UserResponseDTO {
 
     private String email;
 
-    private UserGenderEnum sesso;
+    private LocalDate dataNascita;
+
+    private EuserGenderEnum sesso;
+
 }

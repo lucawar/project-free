@@ -31,6 +31,7 @@ public class UserResource {
     public Response createUserRest(UserRequestDTO userDto) {
         try {
             UserRequestDTO requestDto = userService.createUser(userDto);
+            log.info("[{}] Utente creato con successo",requestDto);
             return Response.status(Response.Status.CREATED).entity(requestDto).build();
         } catch (Exception e) {
             log.error("Error creating user", e);

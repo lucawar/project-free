@@ -1,12 +1,13 @@
 package model;
 
-import enums.UserGenderEnum;
+import enums.EuserGenderEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import utils.Util;
+import utils.StringFormatter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Slf4j
-@Table(name = "Utenti")
+@Table(name = "utenti")
 public class User {
 
     @Id
@@ -31,12 +32,15 @@ public class User {
     @Column(name = "user_cognome")
     private String cognome;
 
+    @Column(name = "user_data_nascita")
+    private LocalDate dataNascita;
+
     @Column(name = "user_email")
     private String email;
 
     @Column(name = "user_sesso")
     @Enumerated(EnumType.STRING)
-    private UserGenderEnum sesso;
+    private EuserGenderEnum sesso;
 
     @Column(name = "data_creazione")
     private LocalDateTime dataCreazione;
@@ -50,8 +54,8 @@ public class User {
         dataCreazione = LocalDateTime.now();
         ultimoAggiornamento = dataCreazione;
         userUuid = UUID.randomUUID();
-        this.nome = Util.capitalizeFirstLetter(nome);
-        this.cognome = Util.capitalizeFirstLetter(cognome);
+        this.nome = StringFormatter.formatNameOrSurname(nome);
+        this.cognome = StringFormatter.formatNameOrSurname(cognome);
     }
 
     @PreUpdate
@@ -61,7 +65,7 @@ public class User {
         } else {
             ultimoAggiornamento = LocalDateTime.now();
         }
-        this.nome = Util.capitalizeFirstLetter(nome);
-        this.cognome = Util.capitalizeFirstLetter(cognome);
+        this.nome = StringFormatter.formatNameOrSurname(nome);
+        this.cognome = StringFormatter.formatNameOrSurname(cognome);
     }
 }
