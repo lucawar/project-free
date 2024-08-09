@@ -4,6 +4,7 @@ import dto.request.UserRequestDTO;
 import dto.response.UserResponseDTO;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -12,7 +13,7 @@ import service.UserService;
 
 import java.util.List;
 
-@Slf4j(topic = "daje")
+@Slf4j(topic = "rest")
 @Path("/users")
 public class UserResource {
 
@@ -24,13 +25,13 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response createUserRest(UserRequestDTO userDto) {
+    public Response createUserRest(@Valid UserRequestDTO userDto) {
         try {
             UserRequestDTO requestDto = userService.createUser(userDto);
-            log.info("Utente creato con successo : [{}] ",requestDto);
+            log.info("Utente creato con successo : [{}] ", requestDto);
             return Response.status(Response.Status.CREATED).entity(requestDto).build();
         } catch (Exception e) {
-            log.error("Error creating user", e);
+            log.error("Errore durante la creazione dell'utente", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error creating user: " + e.getMessage()).build();
         }
     }

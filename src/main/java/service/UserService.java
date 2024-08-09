@@ -5,6 +5,7 @@ import dto.response.UserResponseDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import mapper.UserMapper;
 import model.User;
 import repository.UserRepository;
@@ -21,7 +22,7 @@ public class UserService {
     UserMapper userMapper;
 
     @Transactional
-    public UserRequestDTO createUser(UserRequestDTO userDto) {
+    public UserRequestDTO createUser(@Valid UserRequestDTO userDto) {
         User user = new User();
         userMapper.dtoToEntity(user, userDto);
         userRepository.save(user);

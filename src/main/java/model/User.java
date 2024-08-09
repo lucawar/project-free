@@ -26,19 +26,19 @@ public class User {
     @Column(name = "user_uuid", updatable = false, nullable = false, unique = true)
     private UUID userUuid;
 
-    @Column(name = "user_nome")
+    @Column(name = "user_nome", nullable = false)
     private String nome;
 
-    @Column(name = "user_cognome")
+    @Column(name = "user_cognome", nullable = false)
     private String cognome;
 
-    @Column(name = "user_data_nascita")
+    @Column(name = "user_data_nascita", nullable = false)
     private LocalDate dataNascita;
 
     @Column(name = "user_email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "user_sesso")
+    @Column(name = "user_sesso", nullable = false)
     @Enumerated(EnumType.STRING)
     private EuserGenderEnum sesso;
 
