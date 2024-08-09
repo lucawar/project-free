@@ -3,9 +3,11 @@ package repository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class UserRepository {
@@ -35,6 +37,12 @@ public class UserRepository {
         } else {
             em.remove(em.merge(user));
         }
+    }
+
+    public Optional<User> findByEmail(String email) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query.setParameter("email", email);
+        return query.getResultStream().findFirst();
     }
 
     public void deleteById(Long id) {

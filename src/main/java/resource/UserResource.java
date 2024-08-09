@@ -26,6 +26,11 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response createUserRest(@Valid UserRequestDTO userDto) {
+        // Controllo se l'email è presente nel sistema
+        if (userService.emailUserExists(userDto.getEmail())) {
+            log.warn("Email inserita già esistente nel sistema: [{}]", userDto.getEmail());
+            return Response.status(Response.Status.BAD_REQUEST).entity("Email inserita esiste gia nel sistema").build();
+        }
         try {
             UserRequestDTO requestDto = userService.createUser(userDto);
             log.info("Utente creato con successo : [{}] ", requestDto);
